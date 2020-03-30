@@ -1,0 +1,2 @@
+include ':app', ':network', ':usecase', ':albums', ':androidcore'
+rootProject.name='app-arch'
