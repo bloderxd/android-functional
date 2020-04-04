@@ -10,5 +10,5 @@ private typealias Photos = List<String>
 interface FetchPhotosUseCase : UseCase<EitherPartialOf<Nothing>, Photos>
 
 fun fetchPhotosUseCase(execute: suspend () -> EitherOf<Nothing, Photos>): FetchPhotosUseCase = object : FetchPhotosUseCase {
-    override suspend fun execute(): EitherOf<Nothing, Photos> = execute()
+    override suspend fun run(): EitherOf<Nothing, Photos> = execute()
 }

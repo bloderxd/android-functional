@@ -9,9 +9,9 @@ private typealias Albums = List<String>
 
 interface FetchAlbumsUseCase : UseCase<EitherPartialOf<Nothing>, Albums> {
 
-    override suspend fun execute(): Kind<EitherPartialOf<Nothing>, Albums>
+    override suspend fun run(): Kind<EitherPartialOf<Nothing>, Albums>
 }
 
 fun fetchAlbumsUseCase(execute: suspend () -> EitherOf<Nothing, Albums>): FetchAlbumsUseCase = object : FetchAlbumsUseCase {
-    override suspend fun execute(): EitherOf<Nothing, Albums> = execute()
+    override suspend fun run(): EitherOf<Nothing, Albums> = execute()
 }
