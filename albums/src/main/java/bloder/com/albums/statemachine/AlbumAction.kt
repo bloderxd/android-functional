@@ -1,7 +1,6 @@
 package bloder.com.albums.statemachine
 
 import bloder.com.statemachine.Action
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 sealed class AlbumAction : Action<AlbumState>
 
@@ -12,5 +11,3 @@ data class UpdateNamesAction(private val first: String, private val second: Stri
         second.value = this@UpdateNamesAction.second
     }
 }
-
-val albumAction: ConflatedBroadcastChannel<AlbumAction> = ConflatedBroadcastChannel()
