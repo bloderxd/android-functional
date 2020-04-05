@@ -5,6 +5,6 @@ import bloder.com.statemachine.State
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 interface DataBindingModel<S : State, A : Action<S>> {
-    fun state(): S
-    fun action(): ConflatedBroadcastChannel<A>
+    val state: S
+    val action: ConflatedBroadcastChannel<A>
 }

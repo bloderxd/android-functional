@@ -6,8 +6,6 @@ import bloder.com.androidcore.DataBindingModel
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 class AlbumModel : DataBindingModel<AlbumState, AlbumAction> {
-
-    override fun state(): AlbumState = AlbumState()
-
-    override fun action(): ConflatedBroadcastChannel<AlbumAction> = ConflatedBroadcastChannel()
+    override val state: AlbumState = AlbumState()
+    override val action: ConflatedBroadcastChannel<AlbumAction> = ConflatedBroadcastChannel()
 }

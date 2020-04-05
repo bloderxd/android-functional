@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.sync.Mutex
 
-typealias Reducer<S, A> = (S, A) -> S
+internal typealias Reducer<S, A> = (S, A) -> S
 
 fun <S: State, A: Action<S>> Flow<A>.asStateMachine(
     initialState: S,

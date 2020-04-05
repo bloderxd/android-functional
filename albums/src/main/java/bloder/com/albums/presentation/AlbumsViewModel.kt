@@ -20,5 +20,5 @@ class AlbumsViewModel : BaseViewModel<AlbumState, AlbumAction, AlbumModel>() {
 
     private suspend fun getAlbums() = fetchAlbums(1).run()
 
-    private suspend fun updateTexts(first: String, second: String) = onAction(UpdateNamesAction(first, second))
+    private suspend fun updateTexts(first: String, second: String) = !UpdateNamesAction(first, second)
 }
