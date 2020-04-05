@@ -1,2 +1,2 @@
-include ':app', ':network', ':usecase', ':albums', ':androidcore', ':repository'
+include ':app', ':network', ':usecase', ':albums', ':androidcore', ':repository', ':statemachine'
 rootProject.name='app-arch'
