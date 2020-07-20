@@ -18,24 +18,9 @@ import kotlinx.coroutines.launch
 
 typealias ConcurrentIO = ConcurrentSyntax<ForIO>
 
-abstract class BaseViewModel<S : State, A : Action<S>, M : DataBindingModel<S, A>> : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.Main) {
+abstract class BaseViewModel<M : Model> : ViewModel(), CoroutineScope by CoroutineScope(Dispatchers.Main) {
 
     abstract val model: M
 
-    private val machine: Flow<S> by lazy { model.action.asFlow().asStateMachine(
-        initialState = model.state,
-        reducer = { state, action -> action.transform(state) }
-    )}
-
     protected fun <T> io(c: suspend ConcurrentIO.() -> T) = launch { IO.fx { c() }.suspended() }
-
-    protected suspend fun A.run() {
-        model.action.send(this)
-        machine.collect {}
-    }
-
-    protected suspend operator fun A.not() {
-        model.action.send(this)
-        machine.collect {}
-    }
 }

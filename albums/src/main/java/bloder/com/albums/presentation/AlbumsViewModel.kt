@@ -6,8 +6,9 @@ import bloder.com.albums.statemachine.AlbumAction
 import bloder.com.albums.statemachine.AlbumState
 import bloder.com.albums.statemachine.UpdateNamesAction
 import bloder.com.androidcore.BaseViewModel
+import bloder.com.androidcore.dispatch
 
-class AlbumsViewModel : BaseViewModel<AlbumState, AlbumAction, AlbumModel>() {
+class AlbumsViewModel : BaseViewModel<AlbumModel>() {
 
     override val model: AlbumModel = AlbumModel()
 
@@ -20,5 +21,5 @@ class AlbumsViewModel : BaseViewModel<AlbumState, AlbumAction, AlbumModel>() {
 
     private suspend fun getAlbums() = fetchAlbums(1).run()
 
-    private suspend fun updateTexts(first: String, second: String) = !UpdateNamesAction(first, second)
+    private suspend fun updateTexts(first: String, second: String) = model.dispatch(UpdateNamesAction(first, second))
 }
