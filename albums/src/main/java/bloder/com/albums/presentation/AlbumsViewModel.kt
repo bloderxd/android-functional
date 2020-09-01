@@ -1,14 +1,14 @@
 package bloder.com.albums.presentation
 
 import arrow.core.Either
-import bloder.com.albums.domain.fetchAlbums
-import bloder.com.albums.statemachine.AlbumAction
-import bloder.com.albums.statemachine.AlbumState
 import bloder.com.albums.statemachine.UpdateNamesAction
 import bloder.com.androidcore.BaseViewModel
 import bloder.com.androidcore.dispatch
+import bloder.com.usecase.albums.FetchAlbumsUseCase
 
-class AlbumsViewModel : BaseViewModel<AlbumModel>() {
+class AlbumsViewModel(
+    private val fetchAlbums: FetchAlbumsUseCase
+) : BaseViewModel<AlbumModel>() {
 
     override val model: AlbumModel = AlbumModel()
 
@@ -19,7 +19,7 @@ class AlbumsViewModel : BaseViewModel<AlbumModel>() {
         }
     }
 
-    private suspend fun getAlbums() = fetchAlbums(1).run()
+    private suspend fun getAlbums() = fetchAlbums("1")
 
     private suspend fun updateTexts(first: String, second: String) = model.dispatch(UpdateNamesAction(first, second))
 }

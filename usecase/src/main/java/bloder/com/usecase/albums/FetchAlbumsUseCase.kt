@@ -11,5 +11,5 @@ class FetchAlbumsUseCase(
     private val repository: Repository<FetchAlbumsRepositoryParams, List<String>> = FetchAlbumsRepository
 ) : Repository<FetchAlbumsRepositoryParams, List<String>> by repository {
 
-    suspend fun invoke(userId: String): Either<Error, List<String>> = fetch(FetchAlbumsRepositoryParams(userId))
+    suspend operator fun invoke(userId: String): Either<Error, List<String>> = fetch(FetchAlbumsRepositoryParams(userId))
 }
