@@ -1,17 +1,15 @@
 package bloder.com.usecase.albums
 
-import arrow.Kind
-import arrow.core.EitherOf
-import arrow.core.EitherPartialOf
-import bloder.com.usecase.UseCase
+import arrow.core.Either
+import bloder.com.repository.FetchAlbumsRepository
+import bloder.com.repository.FetchAlbumsRepositoryParams
+import bloder.com.repository.Repository
+import bloder.com.usecase.fetch
+import com.bloder.core.Error
 
-private typealias Albums = List<String>
+class FetchAlbumsUseCase(
+    private val repository: Repository<FetchAlbumsRepositoryParams, List<String>> = FetchAlbumsRepository
+) : Repository<FetchAlbumsRepositoryParams, List<String>> by repository {
 
-interface FetchAlbumsUseCase : UseCase<EitherPartialOf<Nothing>, Albums> {
-
-    override suspend fun run(): Kind<EitherPartialOf<Nothing>, Albums>
-}
-
-fun fetchAlbumsUseCase(execute: suspend () -> EitherOf<Nothing, Albums>): FetchAlbumsUseCase = object : FetchAlbumsUseCase {
-    override suspend fun run(): EitherOf<Nothing, Albums> = execute()
+    suspend fun invoke(userId: String): Either<Error, List<String>> = fetch(FetchAlbumsRepositoryParams(userId))
 }

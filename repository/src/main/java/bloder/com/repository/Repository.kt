@@ -1,12 +1,9 @@
 package bloder.com.repository
 
-import arrow.Kind
-import bloder.com.repository.context.ForUserContext
-import bloder.com.repository.context.contract.UserContext
+import arrow.core.Either
+import com.bloder.core.Error
 
-interface Repository {
+interface Repository<P, T> {
 
-    suspend fun <F, A> withUser(context: suspend UserContext.() -> Kind<F, A>): Kind<F, A> = ForUserContext.context()
+    suspend fun P.load(): Either<Error, T>
 }
-
-object ForRepository : Repository

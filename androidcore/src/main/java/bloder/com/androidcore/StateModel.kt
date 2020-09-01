@@ -15,7 +15,7 @@ open class StateModel<S : State, A : Action<S>>(
     val action: ConflatedBroadcastChannel<A> = ConflatedBroadcastChannel(),
     val stateMachine: Flow<S> = action.asFlow().asStateMachine(
         initialState = state,
-        reducer = { state, action -> action.transform(state) }
+        reducer = { state, action -> with(action) { state.transform() } }
     )
 ) : Model
 

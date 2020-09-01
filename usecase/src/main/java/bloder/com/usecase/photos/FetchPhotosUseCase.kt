@@ -1,14 +1,14 @@
 package bloder.com.usecase.photos
 
-import arrow.core.EitherOf
-import arrow.core.EitherPartialOf
-import arrow.fx.IO
-import bloder.com.usecase.UseCase
+import arrow.core.Either
+import bloder.com.repository.FetchPhotosRepositoryParams
+import bloder.com.repository.Repository
+import bloder.com.usecase.fetch
+import com.bloder.core.Error
 
-private typealias Photos = List<String>
+class FetchPhotosUseCase(
+    private val repository: Repository<FetchPhotosRepositoryParams, List<String>>
+) : Repository<FetchPhotosRepositoryParams, List<String>> by repository {
 
-interface FetchPhotosUseCase : UseCase<EitherPartialOf<Nothing>, Photos>
-
-fun fetchPhotosUseCase(execute: suspend () -> EitherOf<Nothing, Photos>): FetchPhotosUseCase = object : FetchPhotosUseCase {
-    override suspend fun run(): EitherOf<Nothing, Photos> = execute()
+    suspend fun invoke(albumId: String): Either<Error, List<String>> = fetch(FetchPhotosRepositoryParams(albumId))
 }

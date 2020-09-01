@@ -1,8 +1,7 @@
 package bloder.com.usecase
 
-import arrow.Kind
+import arrow.core.Either
+import bloder.com.repository.Repository
+import com.bloder.core.Error
 
-interface UseCase<F, A> {
-
-    suspend fun run(): Kind<F, A>
-}
+suspend fun <T, R, P> T.fetch(p: P): Either<Error, R> where T : Repository<P, R> = p.load()
